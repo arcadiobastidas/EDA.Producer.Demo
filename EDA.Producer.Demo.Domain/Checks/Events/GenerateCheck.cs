@@ -2,4 +2,4 @@
 
 namespace EDA.Producer.Demo.Domain.CheckGeneration.Events;
 
-public record CheckGenerationRequested(Guid Id): IDomainEvent;
+public record GenerateCheck(Guid Id): IDomainEvent;

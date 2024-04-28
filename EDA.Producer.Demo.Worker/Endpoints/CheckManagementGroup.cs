@@ -26,8 +26,8 @@ public static class CheckManagementGroup
         // Generate a check in the payment system
         endpoints.MapPost(pattern:"/check/{id}/generate",  (Guid id, IMediator mediator) =>
             {
-                var request = mediator.Publish(new CheckGenerationRequested(id));
-                return Results.Ok(request);
+                var request = mediator.Publish(new GenerateCheck(id));
+                return Results.Ok();
             })
             .WithName("Generate a check")
             .WithOpenApi(cfg =>

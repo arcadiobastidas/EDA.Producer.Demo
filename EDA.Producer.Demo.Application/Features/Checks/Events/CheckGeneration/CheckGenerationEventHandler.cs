@@ -1,11 +1,12 @@
-﻿using EDA.Producer.Demo.Application.Common.Interfaces;
+﻿using Eda.Demo.Messaging.Contracts.Outbound;
+using EDA.Producer.Demo.Application.Common.Interfaces;
 using EDA.Producer.Demo.Domain.CheckGeneration.Events;
 using MediatR;
 using ErrorOr;
 
 namespace EDA.Producer.Demo.Application.Features.Checks.Events.CheckGeneration;
 
-public class CheckGenerationEventHandler : INotificationHandler<CheckGenerationRequested>
+public class CheckGenerationEventHandler : INotificationHandler<GenerateCheck>
 {
     private readonly IMessageProducer _messageProducer;
     private readonly ICheckRepository _checkRepository;
@@ -16,7 +17,7 @@ public class CheckGenerationEventHandler : INotificationHandler<CheckGenerationR
         _checkRepository = checkRepository;
     }
     
-    public async Task Handle(CheckGenerationRequested notification, CancellationToken cancellationToken)
+    public async Task Handle(GenerateCheck notification, CancellationToken cancellationToken)
     {
         var check = await _checkRepository.GetCheckByIdAsync(notification.Id);
         var checkToGenerate = check!.CheckIsNotGenerated(check);
@@ -26,7 +27,8 @@ public class CheckGenerationEventHandler : INotificationHandler<CheckGenerationR
           await  Task.FromResult(checkToGenerate.Errors);
 
         }
-        await _messageProducer.SendAsync(notification, cancellationToken);
+        var outboundEvent = new CheckGenerationRequested(check.Id);
+        await _messageProducer.SendAsync(outboundEvent, cancellationToken);
 
     }
 
