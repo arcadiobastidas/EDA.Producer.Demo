@@ -34,7 +34,7 @@ public class MessageProducer : IMessageProducer
         try
         {
             _logger.LogInformation("Sending message: {Message}", message);
-            var sendEndpoint = await _bus.GetSendEndpoint(new Uri("queue:eda-demo"));
+            var sendEndpoint = await _bus.GetSendEndpoint(new Uri("queue:check-generation-requested"));
             await sendEndpoint.Send(message, cancellationToken);
         }
         catch (Exception ex)

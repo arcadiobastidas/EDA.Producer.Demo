@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="ABastidas.Eda.Demo.Messaging.Contracts" Version="1.0.2" />
       <PackageReference Include="ErrorOr" Version="2.0.1" />
       <PackageReference Include="MediatR" Version="12.2.0" />
     </ItemGroup>
