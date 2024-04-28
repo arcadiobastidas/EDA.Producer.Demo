@@ -3,10 +3,11 @@ using EDA.Producer.Demo.Application.Features.Checks.Commands.UpdateCheck;
 using EDA.Producer.Demo.Application.Features.Checks.Queries.GetChecks;
 using EDA.Producer.Demo.Domain.CheckGeneration.Events;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace EDA.Producer.Demo.Worker.Endpoints;
 
-public static class CheckManagementGroup
+public static class CheckManagementGroup 
 {
     public static void MapCheckManagementGroup(this IEndpointRouteBuilder endpoints)
     {
@@ -58,5 +59,6 @@ public static class CheckManagementGroup
                 cfg.Description = "Update the amount of a check in the payment system";
                 return cfg;
             });
+        
     }
 }
