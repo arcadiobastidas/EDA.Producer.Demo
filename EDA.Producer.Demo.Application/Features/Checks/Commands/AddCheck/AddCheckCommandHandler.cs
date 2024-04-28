@@ -25,7 +25,7 @@ public class AddCheckCommandHandler : IRequestHandler<AddCheckCommand, ErrorOr<C
         var checkOrError = check.WithNonNegativeAmount();
         if (checkOrError.IsError)
         {
-            return checkOrError.Errors;
+            return checkOrError.FirstError;
         }
         
         await _checkRepository.AddCheckAsync(check);
